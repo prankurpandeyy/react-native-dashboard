@@ -1,0 +1,10 @@
+html,
+body,
+* {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  background-color: rgb(197, 120, 20);
+}
