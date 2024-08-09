@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Flex,
@@ -8,7 +7,29 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react";
+import { useLoginContext } from "../Context/LoginPageContext";
+import { logout } from "../../appwrite";
+import { useNavigate } from "react-router-dom";
+
 function Header() {
+  const { loginData } = useLoginContext();
+
+  const navigate = useNavigate();
+  const storage = localStorage.getItem("cookieFallback");
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.removeItem("cookieFallback");
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+  function handleLogin() {
+    window.location.reload();
+    navigate("/");
+  }
   return (
     <div>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -69,9 +90,27 @@ function Header() {
             </HStack>
           </HStack>
           <Flex alignItems="center">
-            <Button variant="solid" colorScheme="teal" size="sm" mr={4}>
-              Sign Up
-            </Button>
+            {storage ? (
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                size="sm"
+                mr={4}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Button
+                onClick={handleLogin}
+                variant="solid"
+                colorScheme="teal"
+                size="sm"
+                mr={4}
+              >
+                Login
+              </Button>
+            )}
           </Flex>
         </Flex>
       </Box>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -13,29 +13,61 @@ import {
 import { useLoginContext } from "../Context/LoginPageContext";
 import toast from "react-hot-toast";
 import { account } from "../../appwrite";
+import { useNavigate } from "react-router-dom";
 
 function Loginform() {
   const { email, password, loginData, dispatch } = useLoginContext();
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [hasActiveSession, setHasActiveSession] = useState(false);
+  // new login method
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        await account.getSession("current");
+
+        setHasActiveSession(true);
+        toast.error("Session already exists. Logging out.");
+      } catch (error) {
+        if (error.code === 401 || error.code === 404) {
+          setHasActiveSession(false);
+          console.log("Session does not exist.");
+        } else {
+          console.error("Error checking for session:", error);
+        }
+      }
+    };
+    checkSession();
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
+
+    if (hasActiveSession) {
+      try {
+        await account.deleteSession("current");
+        setHasActiveSession(false);
+        toast.promise("Session already exists. Logging out.");
+      } catch (error) {
+        console.error("Error logging out:", error);
+        toast.error(`error ${error}`);
+        return;
+      }
+    }
+
     try {
       const response = await account.createEmailPasswordSession(
         email,
         password
       );
-      console.log("User logged in:", response);
+      dispatch({ type: "LOGINDATA", payload: response });
+      toast.success("User logged in successfully");
+      navigate("/dashboard");
       // Handle successful login, e.g., redirect to another page
     } catch (error) {
-      setError("Failed to log in. Please check your email and password.");
+      toast.promise("Failed to log in. Please check your email and password.");
       console.error("Error logging in user:", error);
     }
-    setLoading(false);
   };
 
   return (
@@ -51,7 +83,7 @@ function Loginform() {
             <Heading textAlign="center" size="lg">
               Login
             </Heading>
-            {/* <form onClick={handleLogin}>
+            <form onClick={handleLogin}>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input
@@ -74,20 +106,21 @@ function Loginform() {
                   }
                 />
               </FormControl>
+
+              <Stack spacing={10} className="mt-4">
+                <Button
+                  type="submit"
+                  bg="blue.400"
+                  color="white"
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                >
+                  Login
+                </Button>
+              </Stack>
             </form>
-            <Stack spacing={10}>
-              <Button
-                type="submit"
-                bg="blue.400"
-                color="white"
-                _hover={{
-                  bg: "blue.500",
-                }}
-              >
-                Sign in
-              </Button>
-            </Stack> */}
-            <form onSubmit={handleLogin}>
+            {/* <form onSubmit={handleLogin}>
               <div>
                 <label>Email:</label>
                 <input
@@ -116,7 +149,7 @@ function Loginform() {
                 {" "}
                 {loading ? "Logging in..." : "Login"}
               </button>
-            </form>
+            </form> */}
           </Stack>
         </Box>
       </Container>

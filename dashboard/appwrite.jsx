@@ -1,4 +1,5 @@
-import { Client, Account } from "appwrite";
+import { Client, Account, Databases } from "appwrite";
+import toast from "react-hot-toast";
 
 const client = new Client();
 
@@ -7,5 +8,16 @@ client
   .setProject(import.meta.env.VITE_MY_APPWRITE_HOTEL_PROJECT_ID); // Your project ID from .env
 
 const account = new Account(client);
+const databases = new Databases(client);
 
-export { account };
+const logout = async () => {
+  try {
+    await account.deleteSession("current");
+    toast.success("User logged out"); // Deletes the current session
+  } catch (error) {
+    console.error("Error logging out:", error);
+    toast.error("An error occurred. Please try again later.");
+  }
+};
+
+export { account, logout, databases };

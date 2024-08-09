@@ -49,15 +49,6 @@ const ViewData = () => {
       <Heading size="md" mb={4} textAlign="center">
         Hotels Registered
       </Heading>
-      {/* <Box mb={4} width="100%">
-        <Button
-          colorScheme="teal"
-          size="md"
-          onClick={() => console.log("Button Clicked")}
-        >
-          Add Hotels
-        </Button>
-      </Box> */}
       <Box
         rounded="lg"
         bg={useColorModeValue("white", "gray.700")}
