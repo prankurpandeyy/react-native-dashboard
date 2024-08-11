@@ -8,6 +8,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 function Footer() {
+  const DateTime = new Date();
+  console.log("🚀 ~ Footer ~ DateTime:", DateTime);
   return (
     <div className="bottom-0 fixed w-full">
       <Box
@@ -26,7 +28,8 @@ function Footer() {
           px={{ base: 4, md: 8 }}
         >
           <Text>
-            &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+            &copy; {new Date().getFullYear()} ATD SOFTWARES . All rights
+            reserved.
           </Text>
           <Stack
             direction={{ base: "column", md: "row" }}
@@ -40,34 +43,7 @@ function Footer() {
                 color: useColorModeValue("gray.900", "gray.300"),
               }}
             >
-              Home
-            </Link>
-            <Link
-              href="#"
-              _hover={{
-                textDecoration: "none",
-                color: useColorModeValue("gray.900", "gray.300"),
-              }}
-            >
-              About
-            </Link>
-            <Link
-              href="#"
-              _hover={{
-                textDecoration: "none",
-                color: useColorModeValue("gray.900", "gray.300"),
-              }}
-            >
-              Services
-            </Link>
-            <Link
-              href="#"
-              _hover={{
-                textDecoration: "none",
-                color: useColorModeValue("gray.900", "gray.300"),
-              }}
-            >
-              Contact
+              Contact Support : 7580909961
             </Link>
           </Stack>
         </Flex>

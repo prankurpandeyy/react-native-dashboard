@@ -10,7 +10,7 @@ import {
 import { useLoginContext } from "../Context/LoginPageContext";
 import { logout } from "../../appwrite";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../assets/mata_sharda.gif";
 function Header() {
   const { loginData } = useLoginContext();
 
@@ -27,8 +27,7 @@ function Header() {
     }
   };
   function handleLogin() {
-    window.location.reload();
-    navigate("/");
+    navigate("/Loginpage");
   }
   return (
     <div>
@@ -36,7 +35,7 @@ function Header() {
         <Flex h={16} alignItems="center" justifyContent="space-between">
           <HStack spacing={8} alignItems="center">
             <Box>
-              <Image src="../assets/matasharda.png" alt="Logo" boxSize="50px" />
+              <Image src={logo} alt="Logo" boxSize="50px" />
             </Box>
             <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
               <Link
@@ -47,45 +46,9 @@ function Header() {
                   textDecoration: "none",
                   bg: useColorModeValue("gray.200", "gray.700"),
                 }}
-                href="#"
+                href="/"
               >
                 Home
-              </Link>
-              <Link
-                px={2}
-                py={1}
-                rounded="md"
-                _hover={{
-                  textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
-                }}
-                href="#"
-              >
-                About
-              </Link>
-              <Link
-                px={2}
-                py={1}
-                rounded="md"
-                _hover={{
-                  textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
-                }}
-                href="#"
-              >
-                Services
-              </Link>
-              <Link
-                px={2}
-                py={1}
-                rounded="md"
-                _hover={{
-                  textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
-                }}
-                href="#"
-              >
-                Contact
               </Link>
             </HStack>
           </HStack>

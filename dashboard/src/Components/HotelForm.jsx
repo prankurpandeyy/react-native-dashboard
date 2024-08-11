@@ -12,34 +12,31 @@ import {
   useDisclosure,
   Text,
 } from "@chakra-ui/react";
-import Hotelregistration from "./Hotelregistration";
-
-const HotelForm = () => {
+import Hotelregistration from "../Components/Hotelregistration";
+const HotelForm = ({ clearForm, handleSubmit }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="teal" m={4}>
+      <Button onClick={onOpen} colorScheme="teal" size="xs" m={3}>
         Register New Hotel
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Register New Hotel</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* <Text>
-              This is the body of the modal. You can put any content here.
-            </Text> */}
-            <Hotelregistration />
+            <Hotelregistration handleSubmit={handleSubmit} />
           </ModalBody>
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            {/* <Button variant="ghost">Secondary Action</Button> */}
+            <Button colorScheme="blue" mr={3} onClick={clearForm}>
+              Clear All Fields
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

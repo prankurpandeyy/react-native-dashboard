@@ -5,19 +5,181 @@ import HotelForm from "../Components/HotelForm";
 import { databases } from "../../appwrite";
 import { getAllHotelData } from "../../Services/services";
 import { useHotelRegistrationContext } from "../Context/HotelRegistrationPageContext";
+import { useToast } from "@chakra-ui/react";
+import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 function Viewdashboard() {
-  const { dispatch, hotelDBDataRespnse } = useHotelRegistrationContext();
-  console.log("🚀 ~ Viewdashboard ~ hotelDBDataRespnse:", hotelDBDataRespnse);
+  const navigate = useNavigate();
+  const {
+    hotelName,
+    hotelAddress,
+    hotelType,
+    hotelRent,
+    hotelContact,
+    hotelLocation,
+    hotelRoomType,
+    hotelFacilties,
+    hotelFeatures,
+    hotelDetails,
+    isFlagged,
+    dispatch,
+    hotelData,
+    hotelDBDataResponse,
+  } = useHotelRegistrationContext();
+  const toast = useToast();
 
   useEffect(() => {
-    getAllHotelData(dispatch);
-  });
+    // Fetch all hotels initially
+    fetchHotels();
+    const token = localStorage.getItem("cookieFallback");
+
+    if (!token) {
+      toast.error("Please login first");
+      navigate("/Loginpage");
+    }
+  }, []);
+
+  const fetchHotels = async () => {
+    try {
+      const data = await databases.listDocuments(
+        import.meta.env.VITE_MY_APPWRITE_PROJECT_DATABASE_ID,
+        import.meta.env.VITE_MY_APPWRITE_PROJECT_DATABSE_COLLECTION_ID
+      );
+      dispatch({ type: "FETCH_HOTEL_DB_RESPONSE", payload: data.documents });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast({
+        title: "Failed to fetch hotels",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const documentId = uuidv4(); // Unique ID for the document
+
+    try {
+      await databases.createDocument(
+        import.meta.env.VITE_MY_APPWRITE_PROJECT_DATABASE_ID,
+        import.meta.env.VITE_MY_APPWRITE_PROJECT_DATABSE_COLLECTION_ID,
+        documentId,
+        {
+          HotelName: hotelName,
+          HotelAddress: hotelAddress,
+          HotelType: hotelType,
+          HotelRent: hotelRent,
+          HotelContact: hotelContact,
+          HotelLocation: hotelLocation,
+          HotelRoomType: hotelRoomType,
+          HotelFacilties: hotelFacilties,
+          HotelFeatures: hotelFeatures,
+          HotelDetails: hotelDetails,
+          isHotelFlagged: isFlagged,
+        }
+      );
+      toast({
+        title: "Hotel created successfully",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      fetchHotels(); // Refresh the hotel list
+      clearForm(); // Clear the form fields
+    } catch (error) {
+      console.error("Failed to create hotel:", error);
+      toast({
+        title: "Failed to create hotel",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleDeleteHotel = async (id) => {
+    try {
+      await databases.deleteDocument(
+        import.meta.env.VITE_MY_APPWRITE_PROJECT_DATABASE_ID,
+        import.meta.env.VITE_MY_APPWRITE_PROJECT_DATABSE_COLLECTION_ID,
+        id
+      );
+      toast({
+        title: "Hotel deleted successfully",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      fetchHotels(); // Refresh the hotel list
+    } catch (error) {
+      console.error("Failed to delete hotel:", error);
+      toast({
+        title: "Failed to delete hotel",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleClearAllHotels = async () => {
+    try {
+      for (const hotel of hotelDBDataResponse) {
+        await databases.deleteDocument(
+          import.meta.env.VITE_MY_APPWRITE_PROJECT_DATABASE_ID,
+          import.meta.env.VITE_MY_APPWRITE_PROJECT_DATABSE_COLLECTION_ID,
+          hotel.$id
+        );
+      }
+      toast({
+        title: "All hotels deleted successfully",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      fetchHotels(); // Refresh the hotel list
+    } catch (error) {
+      console.error("Failed to delete all hotels:", error);
+      toast({
+        title: "Failed to delete all hotels",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const clearForm = () => {
+    dispatch({ type: "HOTELNAME", payload: "" });
+    dispatch({ type: "HOTELADDRESS", payload: "" });
+    dispatch({ type: "RENT", payload: "" });
+    dispatch({ type: "CONTACTNUMBER", payload: "" });
+    dispatch({ type: "LOCATION", payload: "" });
+    dispatch({ type: "OTHERDETAILS", payload: "" });
+    dispatch({ type: "FLAGGED", payload: false });
+    dispatch({ type: "FACILITIES", payload: [] });
+    dispatch({ type: "FEATURES", payload: [] });
+  };
+  console.log(hotelDBDataResponse);
+
+  function editHotel() {
+    navigate("/edithotel");
+  }
 
   return (
     <div>
       <Header />
-      <HotelForm />
-      <ViewData />
+      <HotelForm clearForm={clearForm} handleSubmit={handleSubmit} />
+      <ViewData
+        hotelDBDataResponse={hotelDBDataResponse}
+        handleSubmit={handleSubmit}
+        handleDeleteHotel={handleDeleteHotel}
+        handleClearAllHotels={handleClearAllHotels}
+        clearForm={clearForm}
+        editHotel={editHotel}
+      />
     </div>
   );
 }

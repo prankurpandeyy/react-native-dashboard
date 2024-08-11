@@ -13,11 +13,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Toaster position="top-center" reverseOrder={false} />
     <ChakraProvider>
       <BrowserRouter>
-        <LoginPageContext>
-          <HotelRegistrationPageContext>
+        <HotelRegistrationPageContext>
+          <LoginPageContext>
             <App />
-          </HotelRegistrationPageContext>
-        </LoginPageContext>
+          </LoginPageContext>
+        </HotelRegistrationPageContext>
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>

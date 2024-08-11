@@ -1,8 +1,7 @@
 // src/components/ViewData.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
-  Button,
   Container,
   Heading,
   Table,
@@ -13,114 +12,97 @@ import {
   Td,
   useColorModeValue,
   Flex,
+  TableCaption,
+  TableContainer,
+  Button,
+  Stack,
 } from "@chakra-ui/react";
+import { deleteHotel, getAllHotelData } from "../../Services/services";
+import { useHotelRegistrationContext } from "../Context/HotelRegistrationPageContext";
+import toast from "react-hot-toast";
+import { databases } from "../../appwrite";
+import { Link } from "react-router-dom";
 
-const ViewData = () => {
-  const [hotels, setHotels] = useState([
-    {
-      id: 1,
-      name: "Hotel One",
-      address: "123 Street, City",
-      type: "Veg",
-      Rent: 100,
-
-      contact: "1234567890",
-      location: "https://maps.google.com",
-      roomType: "AC",
-      facilities: ["WiFi", "Breakfast"],
-      features: ["Parking", "Swimming Pool"],
-      details: "Near beach",
-      flagged: false,
-    },
-    // Add more hotel objects here as needed
-  ]);
-
-  const deleteHotel = (id) => {
-    setHotels(hotels.filter((hotel) => hotel.id !== id));
-  };
-
-  const editHotel = (id) => {
-    // Add your edit logic here
-    console.log("Edit hotel with id:", id);
-  };
-
+function ViewData({
+  hotelDBDataResponse,
+  handleSubmit,
+  handleDeleteHotel,
+  handleClearAllHotels,
+  clearForm,
+  editHotel,
+}) {
   return (
-    <Container maxW="container.lg" py={8} centerContent>
+    <Container maxW="container" centerContent>
       <Heading size="md" mb={4} textAlign="center">
         Hotels Registered
       </Heading>
-      <Box
-        rounded="lg"
-        bg={useColorModeValue("white", "gray.700")}
-        boxShadow="lg"
-        p={8}
-        width="120%"
-      >
-        <div className="table-responsive flex justify-center items-center  ">
-          <Table variant="simple" size="sm">
-            <Thead>
-              <Tr bg={useColorModeValue("gray.100", "gray.700")}>
-                <Th>Name</Th>
-                <Th>Address</Th>
-                <Th>Type</Th>
-                <Th>Rent</Th>
-                <Th>Contact</Th>
-                <Th>Location</Th>
-                <Th>Room Type</Th>
-                <Th>Facilities</Th>
-                <Th>Features</Th>
-                <Th>Details</Th>
-                <Th>Flagged</Th>
-                <Th>Actions</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {hotels.map((hotel) => (
-                <Tr key={hotel.id}>
-                  <Td>{hotel.name}</Td>
-                  <Td>{hotel.address}</Td>
-                  <Td>{hotel.type}</Td>
-                  <Td>{hotel.Rent}</Td>
-                  <Td>{hotel.contact}</Td>
-                  <Td>
-                    <a
-                      href={hotel.location}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Link
-                    </a>
-                  </Td>
-                  <Td>{hotel.roomType}</Td>
-                  <Td>{hotel.facilities.join(", ")}</Td>
-                  <Td>{hotel.features.join(", ")}</Td>
-                  <Td>{hotel.details}</Td>
-                  <Td>{hotel.flagged ? "Yes" : "No"}</Td>
-                  <Td className="flex justify-center items-center">
-                    <Button
-                      colorScheme="blue"
-                      size="xs"
-                      mr={2}
-                      onClick={() => editHotel(hotel.id)}
-                    >
-                      Edit
-                    </Button>
+
+      <TableContainer>
+        <Table
+          variant="striped"
+          size="sm"
+          maxW="60%"
+          align="center"
+          cellSpacing={0}
+        >
+          <TableCaption>Hotel Data</TableCaption>
+          <Thead>
+            <Tr>
+              <Th>Hotel Name</Th>
+              <Th>Address</Th>
+              <Th>Type</Th>
+              <Th>Rent</Th>
+              <Th>Contact</Th>
+              <Th>Location</Th>
+              <Th>Room Type</Th>
+              <Th>Facilities</Th>
+              <Th>Features</Th>
+              <Th>Details</Th>
+              <Th>Flagged</Th>
+              <Th>Actions</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {hotelDBDataResponse.map((hotel) => (
+              <Tr key={hotel.$id}>
+                <Td>{hotel.HotelName}</Td>
+                <Td>{hotel.HotelAddress}</Td>
+                <Td>{hotel.HotelType}</Td>
+                <Td>{hotel.HotelRent}</Td>
+                <Td>{hotel.HotelContact}</Td>
+                <Td>{hotel.HotelLocation}</Td>
+                <Td>{hotel.HotelRoomType}</Td>
+                <Td>{hotel.HotelFacilties.join(", ")}</Td>
+                <Td>{hotel.HotelFeatures.join(", ")}</Td>
+                <Td>{hotel.HotelDetails}</Td>
+                <Td>{hotel.isHotelFlagged ? "Yes" : "No"}</Td>
+                <Td>
+                  <Stack direction="row" spacing={2}>
+                    <Link to={`/edithotel/${hotel.$id}`}>
+                      <Button
+                        colorScheme="blue"
+                        size="xs"
+                        onClick={() => editHotel()}
+                      >
+                        Edit
+                      </Button>
+                    </Link>
                     <Button
                       colorScheme="red"
                       size="xs"
-                      onClick={() => deleteHotel(hotel.id)}
+                      onClick={() => handleDeleteHotel(hotel.$id)}
                     >
                       Delete
                     </Button>
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </div>
-      </Box>
+                  </Stack>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </Container>
   );
-};
+}
 
 export default ViewData;
