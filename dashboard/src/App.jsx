@@ -21,6 +21,15 @@ function App() {
             </Authentication>
           }
         />
+        <Route
+          exact
+          path="/edithotel"
+          element={
+            <Authentication>
+              <Edithotel />
+            </Authentication>
+          }
+        />
 
         <Route
           exact
