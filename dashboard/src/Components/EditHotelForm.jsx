@@ -484,7 +484,7 @@ const EditHotelForm = () => {
           </FormControl>
 
           <FormControl id="hotelType">
-            <FormLabel>Hotel Type</FormLabel>
+            <FormLabel>Food Facility</FormLabel>
             <RadioGroup
               name="hotelType"
               value={hotelData.hotelType}
@@ -493,9 +493,8 @@ const EditHotelForm = () => {
               }
             >
               <Stack direction="row">
-                <Radio value="veg">Veg</Radio>
-                <Radio value="non-veg">Non-Veg</Radio>
-                <Radio value="both">both(Veg/Non-Veg)</Radio>
+                <Radio value="yes">Yes</Radio>
+                <Radio value="no">No</Radio>
               </Stack>
             </RadioGroup>
           </FormControl>
@@ -559,7 +558,7 @@ const EditHotelForm = () => {
             </RadioGroup>
           </FormControl>
 
-          <FormControl id="hotelFacilties">
+          {/* <FormControl id="hotelFacilties">
             <FormLabel>Facilities</FormLabel>
             <Stack spacing={2}>
               <Checkbox
@@ -588,7 +587,7 @@ const EditHotelForm = () => {
                 Dinner
               </Checkbox>
             </Stack>
-          </FormControl>
+          </FormControl> */}
 
           <FormControl id="hotelFeatures">
             <FormLabel>Features</FormLabel>
@@ -603,13 +602,11 @@ const EditHotelForm = () => {
                 Parking
               </Checkbox>
               <Checkbox
-                value="swimming-pool"
-                isChecked={hotelData.hotelFeatures.includes("swimming-pool")}
-                onChange={() =>
-                  handleCheckboxChange("hotelFeatures", "swimming-pool")
-                }
+                value="wifi"
+                isChecked={hotelData.hotelFeatures.includes("wifi")}
+                onChange={() => handleCheckboxChange("hotelFeatures", "wifi")}
               >
-                Swimming Pool
+                WiFi
               </Checkbox>
             </Stack>
           </FormControl>

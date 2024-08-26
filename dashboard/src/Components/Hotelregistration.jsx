@@ -71,7 +71,7 @@ const Hotelregistration = ({ handleSubmit }) => {
             </FormControl>
 
             <FormControl id="hotel-type" isRequired>
-              <FormLabel>Type of Hotel</FormLabel>
+              <FormLabel>Food Facility </FormLabel>
               <RadioGroup
                 value={hotelType}
                 onChange={(value) =>
@@ -79,9 +79,8 @@ const Hotelregistration = ({ handleSubmit }) => {
                 }
               >
                 <Stack direction="row">
-                  <Radio value="veg">Veg</Radio>
-                  <Radio value="non-veg">Non-Veg</Radio>
-                  <Radio value="both">Both(Veg/Non-Veg)</Radio>
+                  <Radio value="yes">Yes</Radio>
+                  <Radio value="no">No</Radio>
                 </Stack>
               </RadioGroup>
             </FormControl>
@@ -148,7 +147,7 @@ const Hotelregistration = ({ handleSubmit }) => {
               </RadioGroup>
             </FormControl>
 
-            <FormControl id="facilities" isRequired>
+            {/* <FormControl id="facilities" isRequired>
               <FormLabel>Other Facilities</FormLabel>
               <Stack spacing={5} direction="row">
                 <Checkbox
@@ -179,7 +178,7 @@ const Hotelregistration = ({ handleSubmit }) => {
                   Dinner
                 </Checkbox>
               </Stack>
-            </FormControl>
+            </FormControl> */}
 
             <FormControl id="features" isRequired>
               <FormLabel>Features</FormLabel>
@@ -194,13 +193,13 @@ const Hotelregistration = ({ handleSubmit }) => {
                   Parking
                 </Checkbox>
                 <Checkbox
-                  value="swimming-pool"
-                  isChecked={hotelFeatures.includes("swimming-pool")}
+                  value="wifi"
+                  isChecked={hotelFeatures.includes("wifi")}
                   onChange={(e) =>
                     dispatch({ type: "FEATURES", payload: e.target.value })
                   }
                 >
-                  Swimming Pool
+                  WiFi
                 </Checkbox>
               </Stack>
             </FormControl>

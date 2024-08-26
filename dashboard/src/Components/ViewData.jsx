@@ -21,7 +21,7 @@ import { deleteHotel, getAllHotelData } from "../../Services/services";
 import { useHotelRegistrationContext } from "../Context/HotelRegistrationPageContext";
 import toast from "react-hot-toast";
 import { databases } from "../../appwrite";
-import { Link } from "react-router-dom";
+import { Link, Router } from "react-router-dom";
 
 function ViewData({
   hotelDBDataResponse,
@@ -56,7 +56,7 @@ function ViewData({
               <Th>Contact</Th>
               <Th>Location</Th>
               <Th>Room Type</Th>
-              <Th>Facilities</Th>
+              {/* <Th>Facilities</Th> */}
               <Th>Features</Th>
               <Th>Details</Th>
               <Th>Flagged</Th>
@@ -72,9 +72,17 @@ function ViewData({
                 <Td>{hotel.HotelRentMin}</Td>
                 <Td>{hotel.HotelRentMax}</Td>
                 <Td>{hotel.HotelContact}</Td>
-                <Td>{hotel.HotelLocation}</Td>
+                <Td className="text-blue-600">
+                  <a
+                    href={hotel.HotelLocation}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Location
+                  </a>
+                </Td>
                 <Td>{hotel.HotelRoomType}</Td>
-                <Td>{hotel.HotelFacilties.join(", ")}</Td>
+                {/* <Td>{hotel.HotelFacilties.join(", ")}</Td> */}
                 <Td>{hotel.HotelFeatures.join(", ")}</Td>
                 <Td>{hotel.HotelDetails}</Td>
                 <Td>{hotel.isHotelFlagged ? "Yes" : "No"}</Td>
