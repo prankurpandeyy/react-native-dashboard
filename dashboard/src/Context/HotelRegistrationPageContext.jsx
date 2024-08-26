@@ -13,8 +13,10 @@ function HotelRegistrationPageContext({ children }) {
         return { ...state, hotelAddress: action.payload };
       case "HOTELTYPE":
         return { ...state, hotelType: action.payload };
-      case "RENT":
-        return { ...state, hotelRent: action.payload };
+      case "MINRENT":
+        return { ...state, hotelRentMin: action.payload };
+      case "MAXRENT":
+        return { ...state, hotelRentMax: action.payload };
       case "CONTACTNUMBER":
         return { ...state, hotelContact: action.payload };
       case "LOCATION":
@@ -52,7 +54,8 @@ function HotelRegistrationPageContext({ children }) {
     hotelName: "",
     hotelAddress: "",
     hotelType: "", // Default to empty string
-    hotelRent: "",
+    hotelRentMin: "",
+    hotelRentMax: "",
     hotelContact: "",
     hotelLocation: "",
     hotelRoomType: "", // Default to empty string
@@ -68,7 +71,8 @@ function HotelRegistrationPageContext({ children }) {
     hotelName,
     hotelAddress,
     hotelType,
-    hotelRent,
+    hotelRentMin,
+    hotelRentMax,
     hotelContact,
     hotelLocation,
     hotelRoomType,
@@ -86,7 +90,8 @@ function HotelRegistrationPageContext({ children }) {
         hotelName,
         hotelAddress,
         hotelType,
-        hotelRent,
+        hotelRentMin,
+        hotelRentMax,
         hotelContact,
         hotelLocation,
         hotelRoomType,

@@ -51,7 +51,8 @@ function ViewData({
               <Th>Hotel Name</Th>
               <Th>Address</Th>
               <Th>Type</Th>
-              <Th>Rent</Th>
+              <Th>Min Rent</Th>
+              <Th>Max Rent</Th>
               <Th>Contact</Th>
               <Th>Location</Th>
               <Th>Room Type</Th>
@@ -68,7 +69,8 @@ function ViewData({
                 <Td>{hotel.HotelName}</Td>
                 <Td>{hotel.HotelAddress}</Td>
                 <Td>{hotel.HotelType}</Td>
-                <Td>{hotel.HotelRent}</Td>
+                <Td>{hotel.HotelRentMin}</Td>
+                <Td>{hotel.HotelRentMax}</Td>
                 <Td>{hotel.HotelContact}</Td>
                 <Td>{hotel.HotelLocation}</Td>
                 <Td>{hotel.HotelRoomType}</Td>

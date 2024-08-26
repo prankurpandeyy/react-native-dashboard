@@ -21,7 +21,8 @@ const Hotelregistration = ({ handleSubmit }) => {
     hotelName,
     hotelAddress,
     hotelType,
-    hotelRent,
+    hotelRentMin,
+    hotelRentMax,
     hotelContact,
     hotelLocation,
     hotelRoomType,
@@ -31,7 +32,7 @@ const Hotelregistration = ({ handleSubmit }) => {
     isFlagged,
     dispatch,
   } = useHotelRegistrationContext();
-
+  console.log(hotelRentMax, hotelRentMin);
   return (
     <div className="flex justify-center items-center">
       <Container maxW="lg" p={8}>
@@ -80,18 +81,29 @@ const Hotelregistration = ({ handleSubmit }) => {
                 <Stack direction="row">
                   <Radio value="veg">Veg</Radio>
                   <Radio value="non-veg">Non-Veg</Radio>
+                  <Radio value="both">Both(Veg/Non-Veg)</Radio>
                 </Stack>
               </RadioGroup>
             </FormControl>
 
-            <FormControl id="rent-min" isRequired>
+            <FormControl id="rent-min" isRequired className="flex gap-2">
               <FormLabel>Rent</FormLabel>
               <Input
                 type="number"
                 required
-                value={hotelRent}
+                placeholder="Minimum Rent"
+                value={hotelRentMin}
                 onChange={(e) =>
-                  dispatch({ type: "RENT", payload: e.target.value })
+                  dispatch({ type: "MINRENT", payload: e.target.value })
+                }
+              />
+              <Input
+                type="number"
+                required
+                placeholder="Maximum Rent"
+                value={hotelRentMax}
+                onChange={(e) =>
+                  dispatch({ type: "MAXRENT", payload: e.target.value })
                 }
               />
             </FormControl>
@@ -131,6 +143,7 @@ const Hotelregistration = ({ handleSubmit }) => {
                 <Stack direction="row">
                   <Radio value="ac">AC</Radio>
                   <Radio value="non-ac">Non-AC</Radio>
+                  <Radio value="both">Both(AC/Non-AC)</Radio>
                 </Stack>
               </RadioGroup>
             </FormControl>

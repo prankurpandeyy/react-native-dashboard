@@ -14,7 +14,8 @@ function Viewdashboard() {
     hotelName,
     hotelAddress,
     hotelType,
-    hotelRent,
+    hotelRentMin,
+    hotelRentMax,
     hotelContact,
     hotelLocation,
     hotelRoomType,
@@ -70,7 +71,8 @@ function Viewdashboard() {
           HotelName: hotelName,
           HotelAddress: hotelAddress,
           HotelType: hotelType,
-          HotelRent: hotelRent,
+          HotelRentMin: hotelRentMin,
+          HotelRentMax: hotelRentMax,
           HotelContact: hotelContact,
           HotelLocation: hotelLocation,
           HotelRoomType: hotelRoomType,
@@ -154,7 +156,8 @@ function Viewdashboard() {
   const clearForm = () => {
     dispatch({ type: "HOTELNAME", payload: "" });
     dispatch({ type: "HOTELADDRESS", payload: "" });
-    dispatch({ type: "RENT", payload: "" });
+    dispatch({ type: "MINRENT", payload: "" });
+    dispatch({ type: "MAXRENT", payload: "" });
     dispatch({ type: "CONTACTNUMBER", payload: "" });
     dispatch({ type: "LOCATION", payload: "" });
     dispatch({ type: "OTHERDETAILS", payload: "" });

@@ -375,7 +375,8 @@ const EditHotelForm = () => {
     hotelName: "",
     hotelAddress: "",
     hotelType: "",
-    hotelRent: "",
+    hotelRentMax: "",
+    hotelRentMin: "",
     hotelContact: "",
     hotelLocation: "",
     hotelRoomType: "",
@@ -402,7 +403,8 @@ const EditHotelForm = () => {
         hotelName: response.HotelName || "",
         hotelAddress: response.HotelAddress || "",
         hotelType: response.HotelType || "",
-        hotelRent: response.HotelRent || "",
+        hotelRentMax: response.HotelRentMax || "",
+        hotelRentMin: response.HotelRentMin || "",
         hotelContact: response.HotelContact || "",
         hotelLocation: response.HotelLocation || "",
         hotelRoomType: response.HotelRoomType || "",
@@ -427,7 +429,8 @@ const EditHotelForm = () => {
           HotelName: hotelData.hotelName,
           HotelAddress: hotelData.hotelAddress,
           HotelType: hotelData.hotelType,
-          HotelRent: hotelData.hotelRent,
+          HotelRentMax: hotelData.hotelRentMax,
+          HotelRentMin: hotelData.hotelRentMin,
           HotelContact: hotelData.hotelContact,
           HotelLocation: hotelData.hotelLocation,
           HotelRoomType: hotelData.hotelRoomType,
@@ -455,174 +458,191 @@ const EditHotelForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Stack spacing={4}>
-        <FormControl id="hotelName">
-          <FormLabel>Hotel Name</FormLabel>
-          <Input
-            name="hotelName"
-            value={hotelData.hotelName}
-            onChange={(e) =>
-              setHotelData({ ...hotelData, hotelName: e.target.value })
-            }
-          />
-        </FormControl>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <Stack spacing={4}>
+          <FormControl id="hotelName">
+            <FormLabel>Hotel Name</FormLabel>
+            <Input
+              name="hotelName"
+              value={hotelData.hotelName}
+              onChange={(e) =>
+                setHotelData({ ...hotelData, hotelName: e.target.value })
+              }
+            />
+          </FormControl>
 
-        <FormControl id="hotelAddress">
-          <FormLabel>Hotel Address</FormLabel>
-          <Input
-            name="hotelAddress"
-            value={hotelData.hotelAddress}
-            onChange={(e) =>
-              setHotelData({ ...hotelData, hotelAddress: e.target.value })
-            }
-          />
-        </FormControl>
+          <FormControl id="hotelAddress">
+            <FormLabel>Hotel Address</FormLabel>
+            <Input
+              name="hotelAddress"
+              value={hotelData.hotelAddress}
+              onChange={(e) =>
+                setHotelData({ ...hotelData, hotelAddress: e.target.value })
+              }
+            />
+          </FormControl>
 
-        <FormControl id="hotelType">
-          <FormLabel>Hotel Type</FormLabel>
-          <RadioGroup
-            name="hotelType"
-            value={hotelData.hotelType}
-            onChange={(value) =>
-              setHotelData({ ...hotelData, hotelType: value })
-            }
-          >
-            <Stack direction="row">
-              <Radio value="veg">Veg</Radio>
-              <Radio value="non-veg">Non-Veg</Radio>
-            </Stack>
-          </RadioGroup>
-        </FormControl>
-
-        <FormControl id="hotelRent">
-          <FormLabel>Hotel Rent</FormLabel>
-          <Input
-            name="hotelRent"
-            value={hotelData.hotelRent}
-            onChange={(e) =>
-              setHotelData({ ...hotelData, hotelRent: e.target.value })
-            }
-          />
-        </FormControl>
-
-        <FormControl id="hotelContact">
-          <FormLabel>Contact Number</FormLabel>
-          <Input
-            name="hotelContact"
-            value={hotelData.hotelContact}
-            onChange={(e) =>
-              setHotelData({ ...hotelData, hotelContact: e.target.value })
-            }
-          />
-        </FormControl>
-
-        <FormControl id="hotelLocation">
-          <FormLabel>Location</FormLabel>
-          <Input
-            name="hotelLocation"
-            value={hotelData.hotelLocation}
-            onChange={(e) =>
-              setHotelData({ ...hotelData, hotelLocation: e.target.value })
-            }
-          />
-        </FormControl>
-
-        <FormControl id="hotelRoomType">
-          <FormLabel>Room Type</FormLabel>
-          <RadioGroup
-            name="hotelRoomType"
-            value={hotelData.hotelRoomType}
-            onChange={(value) =>
-              setHotelData({ ...hotelData, hotelRoomType: value })
-            }
-          >
-            <Stack direction="row">
-              <Radio value="ac">AC</Radio>
-              <Radio value="non-ac">Non-AC</Radio>
-            </Stack>
-          </RadioGroup>
-        </FormControl>
-
-        <FormControl id="hotelFacilties">
-          <FormLabel>Facilities</FormLabel>
-          <Stack spacing={2}>
-            <Checkbox
-              value="wifi"
-              isChecked={hotelData.hotelFacilties.includes("wifi")}
-              onChange={() => handleCheckboxChange("hotelFacilties", "wifi")}
-            >
-              WiFi
-            </Checkbox>
-            <Checkbox
-              value="breakfast"
-              isChecked={hotelData.hotelFacilties.includes("breakfast")}
-              onChange={() =>
-                handleCheckboxChange("hotelFacilties", "breakfast")
+          <FormControl id="hotelType">
+            <FormLabel>Hotel Type</FormLabel>
+            <RadioGroup
+              name="hotelType"
+              value={hotelData.hotelType}
+              onChange={(value) =>
+                setHotelData({ ...hotelData, hotelType: value })
               }
             >
-              Breakfast
-            </Checkbox>
-            <Checkbox
-              value="dinner"
-              isChecked={hotelData.hotelFacilties.includes("dinner")}
-              onChange={() => handleCheckboxChange("hotelFacilties", "dinner")}
-            >
-              Dinner
-            </Checkbox>
-          </Stack>
-        </FormControl>
+              <Stack direction="row">
+                <Radio value="veg">Veg</Radio>
+                <Radio value="non-veg">Non-Veg</Radio>
+                <Radio value="both">both(Veg/Non-Veg)</Radio>
+              </Stack>
+            </RadioGroup>
+          </FormControl>
 
-        <FormControl id="hotelFeatures">
-          <FormLabel>Features</FormLabel>
-          <Stack spacing={2}>
-            <Checkbox
-              value="parking"
-              isChecked={hotelData.hotelFeatures.includes("parking")}
-              onChange={() => handleCheckboxChange("hotelFeatures", "parking")}
-            >
-              Parking
-            </Checkbox>
-            <Checkbox
-              value="swimming-pool"
-              isChecked={hotelData.hotelFeatures.includes("swimming-pool")}
-              onChange={() =>
-                handleCheckboxChange("hotelFeatures", "swimming-pool")
+          <FormControl id="hotelRent" className="flex gap-2">
+            <FormLabel>Hotel Rent</FormLabel>
+            <Input
+              name="hotelRentMin"
+              value={hotelData.hotelRentMin}
+              placeholder="Minimum Rent"
+              onChange={(e) =>
+                setHotelData({ ...hotelData, hotelRentMin: e.target.value })
+              }
+            />
+            <Input
+              name="hotelRentMax"
+              value={hotelData.hotelRentMax}
+              placeholder="Maximum Rent"
+              onChange={(e) =>
+                setHotelData({ ...hotelData, hotelRentMax: e.target.value })
+              }
+            />
+          </FormControl>
+
+          <FormControl id="hotelContact">
+            <FormLabel>Contact Number</FormLabel>
+            <Input
+              name="hotelContact"
+              value={hotelData.hotelContact}
+              onChange={(e) =>
+                setHotelData({ ...hotelData, hotelContact: e.target.value })
+              }
+            />
+          </FormControl>
+
+          <FormControl id="hotelLocation">
+            <FormLabel>Location</FormLabel>
+            <Input
+              name="hotelLocation"
+              value={hotelData.hotelLocation}
+              onChange={(e) =>
+                setHotelData({ ...hotelData, hotelLocation: e.target.value })
+              }
+            />
+          </FormControl>
+
+          <FormControl id="hotelRoomType">
+            <FormLabel>Room Type</FormLabel>
+            <RadioGroup
+              name="hotelRoomType"
+              value={hotelData.hotelRoomType}
+              onChange={(value) =>
+                setHotelData({ ...hotelData, hotelRoomType: value })
               }
             >
-              Swimming Pool
+              <Stack direction="row">
+                <Radio value="ac">AC</Radio>
+                <Radio value="non-ac">Non-AC</Radio>
+                <Radio value="both">both(AC/non-AC)</Radio>
+              </Stack>
+            </RadioGroup>
+          </FormControl>
+
+          <FormControl id="hotelFacilties">
+            <FormLabel>Facilities</FormLabel>
+            <Stack spacing={2}>
+              <Checkbox
+                value="wifi"
+                isChecked={hotelData.hotelFacilties.includes("wifi")}
+                onChange={() => handleCheckboxChange("hotelFacilties", "wifi")}
+              >
+                WiFi
+              </Checkbox>
+              <Checkbox
+                value="breakfast"
+                isChecked={hotelData.hotelFacilties.includes("breakfast")}
+                onChange={() =>
+                  handleCheckboxChange("hotelFacilties", "breakfast")
+                }
+              >
+                Breakfast
+              </Checkbox>
+              <Checkbox
+                value="dinner"
+                isChecked={hotelData.hotelFacilties.includes("dinner")}
+                onChange={() =>
+                  handleCheckboxChange("hotelFacilties", "dinner")
+                }
+              >
+                Dinner
+              </Checkbox>
+            </Stack>
+          </FormControl>
+
+          <FormControl id="hotelFeatures">
+            <FormLabel>Features</FormLabel>
+            <Stack spacing={2}>
+              <Checkbox
+                value="parking"
+                isChecked={hotelData.hotelFeatures.includes("parking")}
+                onChange={() =>
+                  handleCheckboxChange("hotelFeatures", "parking")
+                }
+              >
+                Parking
+              </Checkbox>
+              <Checkbox
+                value="swimming-pool"
+                isChecked={hotelData.hotelFeatures.includes("swimming-pool")}
+                onChange={() =>
+                  handleCheckboxChange("hotelFeatures", "swimming-pool")
+                }
+              >
+                Swimming Pool
+              </Checkbox>
+            </Stack>
+          </FormControl>
+
+          <FormControl id="hotelDetails">
+            <FormLabel>Details</FormLabel>
+            <Input
+              name="hotelDetails"
+              value={hotelData.hotelDetails}
+              onChange={(e) =>
+                setHotelData({ ...hotelData, hotelDetails: e.target.value })
+              }
+            />
+          </FormControl>
+
+          <FormControl id="isHotelFlagged">
+            <Checkbox
+              name="isHotelFlagged"
+              isChecked={hotelData.isHotelFlagged}
+              onChange={(e) =>
+                setHotelData({ ...hotelData, isHotelFlagged: e.target.checked })
+              }
+            >
+              Flag this Hotel
             </Checkbox>
-          </Stack>
-        </FormControl>
+          </FormControl>
 
-        <FormControl id="hotelDetails">
-          <FormLabel>Details</FormLabel>
-          <Input
-            name="hotelDetails"
-            value={hotelData.hotelDetails}
-            onChange={(e) =>
-              setHotelData({ ...hotelData, hotelDetails: e.target.value })
-            }
-          />
-        </FormControl>
-
-        <FormControl id="isHotelFlagged">
-          <Checkbox
-            name="isHotelFlagged"
-            isChecked={hotelData.isHotelFlagged}
-            onChange={(e) =>
-              setHotelData({ ...hotelData, isHotelFlagged: e.target.checked })
-            }
-          >
-            Flag this Hotel
-          </Checkbox>
-        </FormControl>
-
-        <Button type="submit" colorScheme="blue">
-          Update Hotel
-        </Button>
-      </Stack>
-    </form>
+          <Button type="submit" colorScheme="blue">
+            Update Hotel
+          </Button>
+        </Stack>
+      </form>{" "}
+    </div>
   );
 };
 
