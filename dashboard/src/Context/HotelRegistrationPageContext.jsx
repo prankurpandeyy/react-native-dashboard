@@ -1,5 +1,5 @@
-// create context file for hotel registration
 import { createContext, useContext, useReducer } from "react";
+
 export const HotelRegistrationContext = createContext();
 export const useHotelRegistrationContext = () =>
   useContext(HotelRegistrationContext);
@@ -11,32 +11,20 @@ function HotelRegistrationPageContext({ children }) {
         return { ...state, hotelName: action.payload };
       case "HOTELADDRESS":
         return { ...state, hotelAddress: action.payload };
-      case "HOTELTYPE":
-        return { ...state, hotelType: action.payload };
+      case "FOODFACILITY":
+        return { ...state, hotelFoodFacility: action.payload }; // boolean true/false
       case "MINRENT":
         return { ...state, hotelRentMin: action.payload };
       case "MAXRENT":
         return { ...state, hotelRentMax: action.payload };
       case "CONTACTNUMBER":
         return { ...state, hotelContact: action.payload };
-      case "LOCATION":
-        return { ...state, hotelLocation: action.payload };
       case "ROOMTYPE":
         return { ...state, hotelRoomType: action.payload };
-      case "FACILITIES":
-        return {
-          ...state,
-          hotelFacilties: state.hotelFacilties.includes(action.payload)
-            ? state.hotelFacilties.filter((item) => item !== action.payload)
-            : [...state.hotelFacilties, action.payload],
-        };
-      case "FEATURES":
-        return {
-          ...state,
-          hotelFeatures: state.hotelFeatures.includes(action.payload)
-            ? state.hotelFeatures.filter((item) => item !== action.payload)
-            : [...state.hotelFeatures, action.payload],
-        };
+      case "LOCATION":
+        return { ...state, hotelLocation: action.payload };
+      case "PARKING":
+        return { ...state, hotelParking: action.payload }; // boolean true/false
       case "OTHERDETAILS":
         return { ...state, hotelDetails: action.payload };
       case "FLAGGED":
@@ -53,14 +41,13 @@ function HotelRegistrationPageContext({ children }) {
   const [state, dispatch] = useReducer(reducerFn, {
     hotelName: "",
     hotelAddress: "",
-    hotelType: "", // Default to empty string
+    hotelFoodFacility: "",
     hotelRentMin: "",
     hotelRentMax: "",
     hotelContact: "",
+    hotelRoomType: "",
     hotelLocation: "",
-    hotelRoomType: "", // Default to empty string
-    hotelFacilties: [],
-    hotelFeatures: [],
+    hotelParking: "",
     hotelDetails: "",
     isFlagged: false,
     hotelData: [],
@@ -70,38 +57,37 @@ function HotelRegistrationPageContext({ children }) {
   const {
     hotelName,
     hotelAddress,
-    hotelType,
+    hotelFoodFacility,
     hotelRentMin,
     hotelRentMax,
     hotelContact,
-    hotelLocation,
     hotelRoomType,
-    hotelFacilties,
-    hotelFeatures,
+    hotelLocation,
+    hotelParking,
     hotelDetails,
     isFlagged,
     hotelData,
     hotelDBDataResponse,
   } = state;
 
+  console.log(hotelDBDataResponse);
   return (
     <HotelRegistrationContext.Provider
       value={{
         hotelName,
         hotelAddress,
-        hotelType,
+        hotelFoodFacility,
         hotelRentMin,
         hotelRentMax,
         hotelContact,
-        hotelLocation,
         hotelRoomType,
-        hotelFacilties,
-        hotelFeatures,
+        hotelLocation,
+        hotelParking,
         hotelDetails,
         isFlagged,
-        dispatch,
         hotelData,
         hotelDBDataResponse,
+        dispatch,
       }}
     >
       {children}

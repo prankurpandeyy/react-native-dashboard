@@ -48,16 +48,16 @@ function ViewData({
           <TableCaption>Hotel Data</TableCaption>
           <Thead>
             <Tr>
-              <Th>Hotel Name</Th>
+              <Th> Name</Th>
               <Th>Address</Th>
-              <Th>Type</Th>
+              <Th>Room Type</Th>
               <Th>Min Rent</Th>
               <Th>Max Rent</Th>
               <Th>Contact</Th>
+
               <Th>Location</Th>
-              <Th>Room Type</Th>
-              {/* <Th>Facilities</Th> */}
-              <Th>Features</Th>
+              <Th>Food </Th>
+              <Th>Parking</Th>
               <Th>Details</Th>
               <Th>Flagged</Th>
               <Th>Actions</Th>
@@ -68,7 +68,7 @@ function ViewData({
               <Tr key={hotel.$id}>
                 <Td>{hotel.HotelName}</Td>
                 <Td>{hotel.HotelAddress}</Td>
-                <Td>{hotel.HotelType}</Td>
+                <Td>{hotel.HotelRoomType}</Td>
                 <Td>{hotel.HotelRentMin}</Td>
                 <Td>{hotel.HotelRentMax}</Td>
                 <Td>{hotel.HotelContact}</Td>
@@ -81,9 +81,8 @@ function ViewData({
                     Location
                   </a>
                 </Td>
-                <Td>{hotel.HotelRoomType}</Td>
-                {/* <Td>{hotel.HotelFacilties.join(", ")}</Td> */}
-                <Td>{hotel.HotelFeatures.join(", ")}</Td>
+                <Td>{hotel.HotelFoodFacility}</Td>
+                <Td>{hotel.HotelParking}</Td>
                 <Td>{hotel.HotelDetails}</Td>
                 <Td>{hotel.isHotelFlagged ? "Yes" : "No"}</Td>
                 <Td>

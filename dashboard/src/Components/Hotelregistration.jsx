@@ -20,19 +20,18 @@ const Hotelregistration = ({ handleSubmit }) => {
   const {
     hotelName,
     hotelAddress,
-    hotelType,
+    hotelFoodFacility,
     hotelRentMin,
     hotelRentMax,
     hotelContact,
-    hotelLocation,
     hotelRoomType,
-    hotelFacilties,
-    hotelFeatures,
+    hotelLocation,
+    hotelParking,
     hotelDetails,
     isFlagged,
     dispatch,
   } = useHotelRegistrationContext();
-  console.log(hotelRentMax, hotelRentMin);
+  console.log(hotelFoodFacility, hotelRoomType, hotelParking);
   return (
     <div className="flex justify-center items-center">
       <Container maxW="lg" p={8}>
@@ -70,19 +69,15 @@ const Hotelregistration = ({ handleSubmit }) => {
               />
             </FormControl>
 
-            <FormControl id="hotel-type" isRequired>
-              <FormLabel>Food Facility </FormLabel>
-              <RadioGroup
-                value={hotelType}
-                onChange={(value) =>
-                  dispatch({ type: "HOTELTYPE", payload: value })
+            <FormControl id="hotel-food" isRequired>
+              <FormLabel>Food Facility</FormLabel>
+              <Input
+                type="text"
+                value={hotelFoodFacility}
+                onChange={(e) =>
+                  dispatch({ type: "FOODFACILITY", payload: e.target.value })
                 }
-              >
-                <Stack direction="row">
-                  <Radio value="yes">Yes</Radio>
-                  <Radio value="no">No</Radio>
-                </Stack>
-              </RadioGroup>
+              />
             </FormControl>
 
             <FormControl id="rent-min" isRequired className="flex gap-2">
@@ -110,7 +105,7 @@ const Hotelregistration = ({ handleSubmit }) => {
             <FormControl id="contact-number" isRequired>
               <FormLabel>Contact Number</FormLabel>
               <Input
-                type="tel"
+                type="number"
                 required
                 value={hotelContact}
                 onChange={(e) =>
@@ -131,77 +126,28 @@ const Hotelregistration = ({ handleSubmit }) => {
               />
             </FormControl>
 
-            <FormControl id="room-type" isRequired>
+            <FormControl id="hotel-rooms" isRequired>
               <FormLabel>Room Type</FormLabel>
-              <RadioGroup
+              <Input
+                type="text"
+                required
                 value={hotelRoomType}
-                onChange={(value) =>
-                  dispatch({ type: "ROOMTYPE", payload: value })
-                }
-              >
-                <Stack direction="row">
-                  <Radio value="ac">AC</Radio>
-                  <Radio value="non-ac">Non-AC</Radio>
-                  <Radio value="both">Both(AC/Non-AC)</Radio>
-                </Stack>
-              </RadioGroup>
+                onChange={(
+                  e // Update here
+                ) => dispatch({ type: "ROOMTYPE", payload: e.target.value })}
+              />
             </FormControl>
 
-            {/* <FormControl id="facilities" isRequired>
-              <FormLabel>Other Facilities</FormLabel>
-              <Stack spacing={5} direction="row">
-                <Checkbox
-                  value="wifi"
-                  isChecked={hotelFacilties.includes("wifi")}
-                  onChange={(e) =>
-                    dispatch({ type: "FACILITIES", payload: e.target.value })
-                  }
-                >
-                  WiFi
-                </Checkbox>
-                <Checkbox
-                  value="breakfast"
-                  isChecked={hotelFacilties.includes("breakfast")}
-                  onChange={(e) =>
-                    dispatch({ type: "FACILITIES", payload: e.target.value })
-                  }
-                >
-                  Breakfast
-                </Checkbox>
-                <Checkbox
-                  value="dinner"
-                  isChecked={hotelFacilties.includes("dinner")}
-                  onChange={(e) =>
-                    dispatch({ type: "FACILITIES", payload: e.target.value })
-                  }
-                >
-                  Dinner
-                </Checkbox>
-              </Stack>
-            </FormControl> */}
-
-            <FormControl id="features" isRequired>
-              <FormLabel>Features</FormLabel>
-              <Stack spacing={5} direction="row">
-                <Checkbox
-                  value="parking"
-                  isChecked={hotelFeatures.includes("parking")}
-                  onChange={(e) =>
-                    dispatch({ type: "FEATURES", payload: e.target.value })
-                  }
-                >
-                  Parking
-                </Checkbox>
-                <Checkbox
-                  value="wifi"
-                  isChecked={hotelFeatures.includes("wifi")}
-                  onChange={(e) =>
-                    dispatch({ type: "FEATURES", payload: e.target.value })
-                  }
-                >
-                  WiFi
-                </Checkbox>
-              </Stack>
+            <FormControl id="hotel-parking" isRequired>
+              <FormLabel>Parking</FormLabel>
+              <Input
+                type="text"
+                required
+                value={hotelParking}
+                onChange={(
+                  e // Update here
+                ) => dispatch({ type: "PARKING", payload: e.target.value })}
+              />
             </FormControl>
 
             <FormControl id="other-details">
