@@ -1,4 +1,4 @@
-import { Client, Account, Databases } from "appwrite";
+import { Client, Account, Databases, Query } from "appwrite";
 import toast from "react-hot-toast";
 
 const client = new Client();
@@ -20,4 +20,4 @@ const logout = async () => {
   }
 };
 
-export { account, logout, databases };
+export { account, logout, databases, Query };

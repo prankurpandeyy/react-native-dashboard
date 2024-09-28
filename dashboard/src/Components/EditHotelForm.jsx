@@ -671,6 +671,18 @@ const EditHotelForm = () => {
               }
             />
           </FormControl>
+          {/* hotel location */}
+          <FormControl id="hotelRoomType">
+            <FormLabel>Location </FormLabel>
+            <Input
+              name="hotelRoomType"
+              placeholder="Type AC,non-AC or Both"
+              value={hotelData.hotelLocation}
+              onChange={(e) =>
+                setHotelData({ ...hotelData, hotelLocation: e.target.value })
+              }
+            />
+          </FormControl>
 
           {/* Parking */}
           <FormControl id="hotelParking">

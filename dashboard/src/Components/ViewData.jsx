@@ -31,6 +31,16 @@ function ViewData({
   clearForm,
   editHotel,
 }) {
+  function convertToGoogleMapsUrl(coordinates) {
+    // Split the coordinates string by the comma
+    const [latitude, longitude] = coordinates.split(",");
+
+    // Generate the Google Maps URL
+    const googleMapsUrl = `https://www.google.com/maps?q=${latitude.trim()},${longitude.trim()}`;
+
+    return googleMapsUrl;
+  }
+
   return (
     <Container maxW="container" centerContent>
       <Heading size="md" mb={4} textAlign="center">
@@ -48,13 +58,12 @@ function ViewData({
           <TableCaption>Hotel Data</TableCaption>
           <Thead>
             <Tr>
-              <Th> Name</Th>
+              <Th>Name</Th>
               <Th>Address</Th>
               <Th>Room Type</Th>
               <Th>Min Rent</Th>
               <Th>Max Rent</Th>
               <Th>Contact</Th>
-
               <Th>Location</Th>
               <Th>Food </Th>
               <Th>Parking</Th>
@@ -74,11 +83,11 @@ function ViewData({
                 <Td>{hotel.HotelContact}</Td>
                 <Td className="text-blue-600">
                   <a
-                    href={hotel.HotelLocation}
+                    href={convertToGoogleMapsUrl(hotel.HotelLocation)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Location
+                    {convertToGoogleMapsUrl(hotel.HotelLocation)}
                   </a>
                 </Td>
                 <Td>{hotel.HotelFoodFacility}</Td>
