@@ -676,7 +676,7 @@ const EditHotelForm = () => {
             <FormLabel>Location </FormLabel>
             <Input
               name="hotelRoomType"
-              placeholder="Type AC,non-AC or Both"
+              placeholder="Type Location"
               value={hotelData.hotelLocation}
               onChange={(e) =>
                 setHotelData({ ...hotelData, hotelLocation: e.target.value })
