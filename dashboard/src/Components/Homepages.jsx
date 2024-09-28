@@ -61,7 +61,7 @@ const Homepages = () => {
           </Text>
 
           <HStack spacing={4}>
-            <Button colorScheme="teal" onClick={() => navigate("/login")}>
+            <Button colorScheme="teal" onClick={() => navigate("/Loginpage")}>
               Login
             </Button>
             <Button
