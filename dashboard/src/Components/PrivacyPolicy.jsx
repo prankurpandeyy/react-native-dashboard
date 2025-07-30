@@ -12,7 +12,7 @@ function PrivacyPolicy() {
     <div>
       <Box p={8}>
         <Heading as="h1" size="xl" mb={6}>
-          🛡️ Privacy Policy
+          🛡️ Privacy Policy (App Policy)
         </Heading>
         <Text>Last updated: July 21, 2025</Text>
         <Text mt={4}>
