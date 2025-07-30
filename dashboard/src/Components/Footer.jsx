@@ -7,11 +7,13 @@ import {
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
+
 function Footer() {
   const DateTime = new Date();
   console.log("🚀 ~ Footer ~ DateTime:", DateTime);
   return (
-    <div className="bottom-0 fixed w-full">
+    <div className="bottom-0 fixed w-full ">
       <Box
         bg={useColorModeValue("gray.100", "gray.900")}
         color={useColorModeValue("gray.700", "gray.200")}
@@ -28,9 +30,24 @@ function Footer() {
           px={{ base: 4, md: 8 }}
         >
           <Text>
-            &copy; {new Date().getFullYear()} ATD SOFTWARES . All rights
-            reserved.
+            &copy; {new Date().getFullYear()} 99MVP's . All rights reserved.
           </Text>
+
+          <Box
+            bg={useColorModeValue("gray.200", "gray.800")}
+            color={useColorModeValue("gray.700", "gray.200")}
+            py={2}
+            textAlign="center"
+          >
+            <Stack direction="row" spacing={4} justify="center">
+              <Link as={RouterLink} to="/privacy" color="blue.500">
+                Privacy Policy
+              </Link>
+              <Link as={RouterLink} to="/terms-and-conditions" color="blue.500">
+                Terms & Conditions
+              </Link>
+            </Stack>
+          </Box>
           <Stack
             direction={{ base: "column", md: "row" }}
             spacing={4}

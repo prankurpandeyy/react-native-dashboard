@@ -6,6 +6,8 @@ import { Route, Routes } from "react-router-dom";
 import HotelManagement from "./Components/EditHotelForm";
 import Authentication from "../Services/Authentication";
 import Edithotel from "./Pages/Edithotel";
+import Privacy from "./Pages/Privacy";
+import TermsAndConditions from "./Pages/TermsAndConditions.jsx";
 function App() {
   return (
     <div>
@@ -41,6 +43,12 @@ function App() {
           }
         />
         <Route exact path="/hotelmanagement" element={<HotelManagement />} />
+        <Route exact path="/privacy" element={<Privacy />} />
+        <Route
+          exact
+          path="/terms-and-conditions"
+          element={<TermsAndConditions />}
+        />
       </Routes>
     </div>
   );

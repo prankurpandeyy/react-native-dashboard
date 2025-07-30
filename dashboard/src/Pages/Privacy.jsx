@@ -1,19 +1,18 @@
 import React from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import Loginform from "../Components/Loginform";
-import Homepages from "../Components/Homepages";
+import PrivacyPolicy from "../Components/PrivacyPolicy";
 
-function Homepage() {
+function Privacy() {
   return (
-    <>
+    <div>
       <Header />
-      <Homepages />
+      <PrivacyPolicy />
       <div className="mb-12">
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
 
-export default Homepage;
+export default Privacy;
