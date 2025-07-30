@@ -54,13 +54,13 @@ const Homepages = () => {
           <Text>
             <strong>Help & Support:</strong> If you need assistance, feel free
             to reach out to me via email at{" "}
-            <Link href="mailto:pprankur@gmail.com" color="teal.500">
-              pprankur@gmail.com
+            <Link href="mailto: kshitiz.gwl2k@gmail.com" color="teal.500">
+              kshitiz.gwl2k@gmail.com
             </Link>
             .
           </Text>
 
-          <HStack spacing={4}>
+          {/* <HStack spacing={4}>
             <Button colorScheme="teal" onClick={() => navigate("/Loginpage")}>
               Login
             </Button>
@@ -71,7 +71,7 @@ const Homepages = () => {
             >
               Register
             </Button>
-          </HStack>
+          </HStack> */}
 
           <HStack spacing={4} mt={8}>
             <Text fontSize="lg" fontWeight="bold">
@@ -82,7 +82,7 @@ const Homepages = () => {
               isExternal
             >
               <Button colorScheme="teal" leftIcon={<Icon as={FaGooglePlay} />}>
-                Get it on Google Play
+                Coming Soon the app is under development
               </Button>
             </Link>
           </HStack>
